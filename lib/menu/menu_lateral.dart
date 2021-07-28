@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onehand_spa/add/add_user.dart';
+import 'package:onehand_spa/add/view_perfil.dart';
 import 'package:onehand_spa/global.dart';
 import 'package:onehand_spa/list/user.dart';
 import 'package:onehand_spa/login.dart';
@@ -73,10 +74,21 @@ class Menu extends State<MenuLateral> {
               color: Colors.white,
             ),
             title: Text('Mi perfil'),
+<<<<<<< HEAD
             onTap: () {},
           ),
           ListTile(
             leading: Icon(Icons.wysiwyg),
+=======
+            onTap: (){
+              // Navegación para el perfil del usuario con la intención
+              Navigator.push(context, Animation_route(ViewPerfil())).whenComplete(() => Navigator.of(context).pop());
+            },
+          ),ListTile(
+            leading: Icon(
+                Icons.wysiwyg
+            ),
+>>>>>>> deaafa11f03e6f4be97c5d048af72610db98b4ab
             title: Text("Noticias"),
             onTap: () {
               launch("https://onehand.cl");
@@ -122,3 +134,5 @@ class Menu extends State<MenuLateral> {
 Future<void> signout() async {
   await FirebaseAuth.instance.signOut();
 }
+
+
