@@ -8,6 +8,7 @@ import 'package:onehand_spa/login.dart';
 import 'package:onehand_spa/main.dart';
 import 'package:onehand_spa/menu/animation_route.dart';
 import 'package:onehand_spa/pages/menu_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MenuLateral extends StatefulWidget {
   @override
@@ -23,7 +24,7 @@ class Menu extends State<MenuLateral> {
         children: [
           DrawerHeader(
             child: Text(
-              "${Global.user.nombre} ${Global.user.apellido}\n\n${Global.user.email}",
+              "${Global.user.nombre}    ${Global.user.apellido}     ${Global.user.email}",
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.white,
@@ -48,7 +49,8 @@ class Menu extends State<MenuLateral> {
             ),
             title: Text("Inicio"),
             onTap: () {
-              Navigator.push(context, Animation_route(MenuPage(Global.user.rol)))
+              Navigator.push(
+                      context, Animation_route(MenuPage(Global.user.rol)))
                   .whenComplete(() => Navigator.of(context).pop());
             },
           ),
@@ -71,34 +73,33 @@ class Menu extends State<MenuLateral> {
               color: Colors.white,
             ),
             title: Text('Mi perfil'),
-            onTap: (){},
-          ),ListTile(
-            leading: Icon(
-                Icons.wysiwyg
-            ),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.wysiwyg),
             title: Text("Noticias"),
-            onTap: (){},
+            onTap: () {
+              launch("https://onehand.cl");
+            },
           ),
           ListTile(
-            leading: Icon(
-              Icons.chat_bubble
-            ),
+            leading: Icon(Icons.chat_bubble),
             title: Text("Atención al cliente"),
-            onTap: (){},
+            onTap: () {
+              launch("https://onehand.cl");
+            },
           ),
           ListTile(
-            leading: Icon(
-              Icons.assignment_rounded
-            ),
+            leading: Icon(Icons.assignment_rounded),
             title: Text("Acerca de OneHand"),
-            onTap: (){},
+            onTap: () {
+              launch("https://onehand.cl");
+            },
           ),
           ListTile(
-            leading: Icon(
-              Icons.account_tree
-            ),
+            leading: Icon(Icons.account_tree),
             title: Text("Compartir"),
-            onTap: (){},
+            onTap: () {},
           ),
           ListTile(
             leading: Icon(
@@ -106,17 +107,18 @@ class Menu extends State<MenuLateral> {
               color: Colors.white,
             ),
             title: Text("Salir"),
-            onTap: (){
+            onTap: () {
               signout();
-              Navigator.push(context, Animation_route(Login())).whenComplete(() => Navigator.of(context).pop());
+              Navigator.push(context, Animation_route(Login()))
+                  .whenComplete(() => Navigator.of(context).pop());
             },
           ),
-
         ],
       ),
     );
   }
 }
-Future<void> signout() async{
+
+Future<void> signout() async {
   await FirebaseAuth.instance.signOut();
 }
