@@ -74,21 +74,14 @@ class Menu extends State<MenuLateral> {
               color: Colors.white,
             ),
             title: Text('Mi perfil'),
-<<<<<<< HEAD
-            onTap: () {},
+            onTap: () {
+              // Navegación para el perfil del usuario con la intención
+              Navigator.push(context, Animation_route(ViewPerfil()))
+                  .whenComplete(() => Navigator.of(context).pop());
+            },
           ),
           ListTile(
             leading: Icon(Icons.wysiwyg),
-=======
-            onTap: (){
-              // Navegación para el perfil del usuario con la intención
-              Navigator.push(context, Animation_route(ViewPerfil())).whenComplete(() => Navigator.of(context).pop());
-            },
-          ),ListTile(
-            leading: Icon(
-                Icons.wysiwyg
-            ),
->>>>>>> deaafa11f03e6f4be97c5d048af72610db98b4ab
             title: Text("Noticias"),
             onTap: () {
               launch("https://onehand.cl");
@@ -134,5 +127,3 @@ class Menu extends State<MenuLateral> {
 Future<void> signout() async {
   await FirebaseAuth.instance.signOut();
 }
-
-
