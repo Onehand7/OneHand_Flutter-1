@@ -1,7 +1,6 @@
+import 'list/users.dart';
 
-import 'list/user.dart';
-
-class Global{
+class Global {
   static late Users doc;
   static late Users user;
 }

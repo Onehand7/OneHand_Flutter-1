@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>34727714719-cdbu1cj3v894766r1stbhjd1jjtna31b.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.34727714719-cdbu1cj3v894766r1stbhjd1jjtna31b</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>34727714719-r3uvkv2oh3dm3md95r452ip9bd4scele.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDpRobpWkiW149qP6twmtgeE_PocHfK2BQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>34727714719</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.onehandspa.onehand</string>
+	<key>PROJECT_ID</key>
+	<string>onehandspa-7b432</string>
+	<key>STORAGE_BUCKET</key>
+	<string>onehandspa-7b432.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:34727714719:ios:72f7ad93c328c4a559a7aa</string>
+	<key>DATABASE_URL</key>
+	<string>https://onehandspa-7b432-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

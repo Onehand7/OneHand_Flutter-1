@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_storage/firebase_storage.dart';
@@ -8,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onehand_spa/add/card_foto.dart';
 import 'package:onehand_spa/add/validate_text.dart';
-import 'package:onehand_spa/list/user.dart';
+import 'package:onehand_spa/list/users.dart';
 import 'package:onehand_spa/main.dart';
 import 'package:onehand_spa/menu/animation_route.dart';
 
@@ -45,7 +44,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child:Text(title)),
+        title: Center(child: Text(title)),
         actions: [
           //boton que permite regresar a la pestaña inicio
           InkWell(
@@ -82,7 +81,7 @@ class UserFormState extends State<UserForm> {
   var password = TextEditingController();
   var name = TextEditingController();
   var lastname = TextEditingController();
-  List _roles = ["Cliente","Tecnico"];
+  List _roles = ["Cliente", "Tecnico"];
 
   late List<DropdownMenuItem<String>> _dropDownRolesItems;
   late String _currentRole;
@@ -132,7 +131,7 @@ class UserFormState extends State<UserForm> {
           ),
           Padding(
             padding:
-            const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
             child: TextFormField(
               keyboardType: TextInputType.text,
               style: TextStyle(fontSize: 20.0),
@@ -154,7 +153,7 @@ class UserFormState extends State<UserForm> {
           ),
           Padding(
             padding:
-            const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
             child: TextFormField(
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(fontSize: 20.0),
@@ -172,7 +171,7 @@ class UserFormState extends State<UserForm> {
           ),
           Padding(
             padding:
-            const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
             child: TextFormField(
               obscureText: true,
               style: TextStyle(fontSize: 20.0),
@@ -184,12 +183,13 @@ class UserFormState extends State<UserForm> {
                     borderRadius: BorderRadius.circular(25.0),
                     borderSide: BorderSide()),
               ),
-             // validator: validatePassword,
+              // validator: validatePassword,
               controller: password,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 10.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
             child: DropdownButton(
               value: _currentRole,
               hint: Text(_roles.toString()),
@@ -198,15 +198,17 @@ class UserFormState extends State<UserForm> {
             ),
           ),
           Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0,horizontal: 10.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
             child: MaterialButton(
               minWidth: 200.0,
               height: 60.0,
               color: Colors.lightBlue,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0)),
               child: setUpButtonChild(),
-              onPressed: (){
-                if(_formKey.currentState!.validate()){
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
                   registrar(context);
                 }
               },
@@ -216,29 +218,30 @@ class UserFormState extends State<UserForm> {
       ),
     );
   }
+
 //funcion para el boton registrar
   int _state = 0;
-  Widget setUpButtonChild(){
-    if(_state == 0){
+  Widget setUpButtonChild() {
+    if (_state == 0) {
       return Text(
         "Registrar",
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ) ,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+        ),
       );
-    }else if(_state ==1){
+    } else if (_state == 1) {
       return CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
-    }else{
+    } else {
       return Text(
-          "Registrar",
-          style: const TextStyle(
+        "Registrar",
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 20,
-      ) ,
-    );
+        ),
+      );
     }
   }
   /*
@@ -268,33 +271,34 @@ class UserFormState extends State<UserForm> {
   */
 
   //metodo
-  registrar(BuildContext context)async{
-
+  registrar(BuildContext context) async {
     final _auth = FirebaseAuth.instance;
     //final _firebaseStorageRef = FirebaseStorage.instance;
     final _db = FirebaseFirestore.instance;
     //var image = CardFoto;
-    if(email.text !=null && password.text!=null){
+    if (email.text != null && password.text != null) {
       setState(() {
-        if(_state==0){
+        if (_state == 0) {
           animateButton();
         }
       });
-      await _auth.createUserWithEmailAndPassword(
-          email: email.text,
-          password: password.text,
-      ).then((value){
+      await _auth
+          .createUserWithEmailAndPassword(
+        email: email.text,
+        password: password.text,
+      )
+          .then((value) {
         DocumentReference ref = _db.collection("users").doc(email.text);
         ref.set({
-          "nombre":name.text,
-          "apellido":lastname.text,
+          "nombre": name.text,
+          "apellido": lastname.text,
           "email": email.text,
           "rol": _currentRole,
           "active": "true",
-        })
-        .then((value){
-          Future<DocumentSnapshot> snapshot = _db.collection('users').doc(email.text).get();
-          snapshot.then((DocumentSnapshot user){
+        }).then((value) {
+          Future<DocumentSnapshot> snapshot =
+              _db.collection('users').doc(email.text).get();
+          snapshot.then((DocumentSnapshot user) {
             Global.user = Users(
               user['nombre'],
               user['apellido'],
@@ -302,44 +306,45 @@ class UserFormState extends State<UserForm> {
               user['rol'],
               user['active'],
             );
-            Navigator.push(context, Animation_route(MenuPage(Global.user.rol))).whenComplete(() => Navigator.of(context).pop());
+            Navigator.push(context, Animation_route(MenuPage(Global.user.rol)))
+                .whenComplete(() => Navigator.of(context).pop());
           });
-
         });
-      }).catchError((e)=>{
-        ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(e.message))),
-
-      });
+      }).catchError((e) => {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(e.message))),
+              });
     }
   }
-  void animateButton(){
+
+  void animateButton() {
     setState(() {
-      _state =1;
+      _state = 1;
     });
-    Timer(Duration(seconds: 60),(){
+    Timer(Duration(seconds: 60), () {
       setState(() {
-        _state=2;
+        _state = 2;
       });
     });
   }
-  List<DropdownMenuItem<String>> getDropDownRolesItems(){
+
+  List<DropdownMenuItem<String>> getDropDownRolesItems() {
     List<DropdownMenuItem<String>> items = [];
-    for(String item in _roles){
+    for (String item in _roles) {
       items.add(DropdownMenuItem(
         value: item,
-          child: Text(
-            item,
-            style: TextStyle(
-              fontSize: 20,
-            ),
+        child: Text(
+          item,
+          style: TextStyle(
+            fontSize: 20,
           ),
-
+        ),
       ));
     }
     return items;
   }
-  void changedDropDownItem(String? selectedRole){
+
+  void changedDropDownItem(String? selectedRole) {
     setState(() {
       _currentRole = selectedRole!;
     });

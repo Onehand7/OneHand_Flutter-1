@@ -3,17 +3,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onehand_spa/details/details_user.dart';
-import 'package:onehand_spa/list/user.dart';
+import 'package:onehand_spa/list/users.dart';
 import 'package:onehand_spa/menu/animation_route.dart';
 import 'package:onehand_spa/menu/menu_lateral.dart';
 import '../constans.dart';
 import '../global.dart';
 
-class ListUser extends StatefulWidget{
+class ListUser extends StatefulWidget {
   @override
   ListUserState createState() => ListUserState();
-
 }
+
 class ListUserState extends State<ListUser> {
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
   final _db = FirebaseFirestore.instance;
@@ -22,7 +22,8 @@ class ListUserState extends State<ListUser> {
   late bool _isSearching;
   final _controller = new TextEditingController();
   //late Users doc;
-  CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
+  CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('users');
   @override
   void initState() {
     super.initState();
@@ -45,8 +46,6 @@ class ListUserState extends State<ListUser> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
         title: appBarTitle,
@@ -62,14 +61,11 @@ class ListUserState extends State<ListUser> {
                   );
                   this.appBarTitle = TextField(
                     controller: _controller,
-                    style: TextStyle(
-                        color: Colors.white
-                    ),
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.search, color: Colors.white),
                         hintText: "Search...",
-                        hintStyle: TextStyle(color: Colors.white)
-                    ),
+                        hintStyle: TextStyle(color: Colors.white)),
                     onChanged: searchOperation,
                   );
                   _handleSearchStart();
@@ -89,26 +85,22 @@ class ListUserState extends State<ListUser> {
         child: UserListView(),
       ),
     );
-
   }
 
-
   Future<void> readData() async {
-
     StreamBuilder(
         stream: _db.collection('users').snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) return Center(child:CircularProgressIndicator());
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData)
+            return Center(child: CircularProgressIndicator());
           return new ListView(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+              Map<String, dynamic> data =
+                  document.data() as Map<String, dynamic>;
               return UserListView();
-
             }).toList(),
           );
-        }
-    );
+        });
 /*
      StreamBuilder(
                 stream: _db.collection('users').snapshots(),
@@ -121,22 +113,21 @@ class ListUserState extends State<ListUser> {
 
  */
     Stream<QuerySnapshot> qs = _db.collection('users').snapshots();
-    qs.listen((QuerySnapshot onData)=>{
-      listUser.clear(),
-      onData.docs.map((doc) =>{
-        listUser.add(Users(
-          doc['nombre'],
-          doc['apellido'],
-          doc.id,
-          doc['rol'],
-          doc['active'],
-      )),
-      }).toList(),
-      userList(null),
-    });
-
-
-
+    qs.listen((QuerySnapshot onData) => {
+          listUser.clear(),
+          onData.docs
+              .map((doc) => {
+                    listUser.add(Users(
+                      doc['nombre'],
+                      doc['apellido'],
+                      doc.id,
+                      doc['rol'],
+                      doc['active'],
+                    )),
+                  })
+              .toList(),
+          userList(null),
+        });
   }
 
   Container buildItem(Users doc) {
@@ -147,10 +138,7 @@ class ListUserState extends State<ListUser> {
         horizontal: 5.0,
       ),
       child: Stack(
-        children: [
-          card(doc),
-          thumbnail(doc)
-        ],
+        children: [card(doc), thumbnail(doc)],
       ),
     );
   }
@@ -174,15 +162,14 @@ class ListUserState extends State<ListUser> {
                 blurRadius: 5.0,
                 offset: Offset(0.0, 5.0),
               )
-            ]
-        ),
+            ]),
         child: Row(
           children: [
             Container(
               width: 250,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 8.0, horizontal: 60.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -215,10 +202,9 @@ class ListUserState extends State<ListUser> {
                 ),
               ),
             ),
-
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: 8.0, horizontal: 30.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -262,8 +248,7 @@ class ListUserState extends State<ListUser> {
                 offset: Offset(1.0, 5.0),
                 blurRadius: 3.0,
               )
-            ]
-        ),
+            ]),
       ),
     );
   }
@@ -277,8 +262,9 @@ class ListUserState extends State<ListUser> {
             children: listUser.map((user) => buildItem(user)).toList(),
           );
         } else {
-          var usuario = listUser.where((element) =>
-              element.nombre.startsWith(searchText)).toList();
+          var usuario = listUser
+              .where((element) => element.nombre.startsWith(searchText))
+              .toList();
           if (0 < usuario.length) {
             _users = Column(
               children: usuario.map((user) => buildItem(user)).toList(),
@@ -322,35 +308,41 @@ class ListUserState extends State<ListUser> {
 }
 
 class UserListView extends StatelessWidget {
-  final Stream<QuerySnapshot> collectionStream = FirebaseFirestore.instance.collection('users').snapshots();
+  final Stream<QuerySnapshot> collectionStream =
+      FirebaseFirestore.instance.collection('users').snapshots();
   late Users doc;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: collectionStream,
-      builder: (BuildContext context,
-          AsyncSnapshot<QuerySnapshot> snapshot){
-        if (!snapshot.hasData) return Center(child:CircularProgressIndicator());
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (!snapshot.hasData)
+          return Center(child: CircularProgressIndicator());
         return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
-                onTap: (){
-                  Global.doc = Users(snapshot.data!.docs[index]['nombre'], snapshot.data!.docs[index]['apellido'], snapshot.data!.docs[index]['email'], snapshot.data!.docs[index]['rol'], snapshot.data!.docs[index]['active']);
-                  Navigator.push(context, Animation_route(DetailsUser())).whenComplete(() => Navigator.of(context).pop());
+                onTap: () {
+                  Global.doc = Users(
+                      snapshot.data!.docs[index]['nombre'],
+                      snapshot.data!.docs[index]['apellido'],
+                      snapshot.data!.docs[index]['email'],
+                      snapshot.data!.docs[index]['rol'],
+                      snapshot.data!.docs[index]['active']);
+                  Navigator.push(context, Animation_route(DetailsUser()))
+                      .whenComplete(() => Navigator.of(context).pop());
                 },
                 child: Container(
                   height: 300.0,
-                  margin: EdgeInsets.symmetric(vertical: 5.0,horizontal: 5.0),
+                  margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
                   decoration: BoxDecoration(
                     //color: Colors.lightBlue,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Card(
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)
-                    ),
+                        borderRadius: BorderRadius.circular(15)),
                     //color: Colors.red,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -359,7 +351,8 @@ class UserListView extends StatelessWidget {
                           height: 130.0,
                           //color: Colors.green,
                           child: Image(
-                            image: NetworkImage("https://www.urgencias24h.net/wp-content/uploads/2019/12/electricista-urgente-24h-nou-barris-barcelona.jpg"),
+                            image: NetworkImage(
+                                "https://www.urgencias24h.net/wp-content/uploads/2019/12/electricista-urgente-24h-nou-barris-barcelona.jpg"),
                             width: double.infinity,
                           ),
                         ),
@@ -387,8 +380,7 @@ class UserListView extends StatelessWidget {
                                 color: Colors.yellow,
                               ),
                               Text("(56)"),
-                            ]
-                        ),
+                            ]),
                         Container(
                           //color: Colors.yellow,
                           height: 130,
@@ -396,28 +388,52 @@ class UserListView extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.person,size: 25,),
-                                  Text('${snapshot.data!.docs[index]['nombre']} ${snapshot.data!.docs[index]['apellido']}',style: TextStyle(fontSize: 18),)
+                                  Icon(
+                                    Icons.person,
+                                    size: 25,
+                                  ),
+                                  Text(
+                                    '${snapshot.data!.docs[index]['nombre']} ${snapshot.data!.docs[index]['apellido']}',
+                                    style: TextStyle(fontSize: 18),
+                                  )
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Icon(Icons.settings_rounded,size: 25,),
-                                  Text("Plomero, Filtraciones",style: TextStyle(fontSize: 18))
+                                  Icon(
+                                    Icons.settings_rounded,
+                                    size: 25,
+                                  ),
+                                  Text("Plomero, Filtraciones",
+                                      style: TextStyle(fontSize: 18))
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Icon(Icons.location_on,size: 25,),
-                                  Text("Psj. Tomas Elgueta, #1448",style: TextStyle(fontSize: 18))
+                                  Icon(
+                                    Icons.location_on,
+                                    size: 25,
+                                  ),
+                                  Text("Psj. Tomas Elgueta, #1448",
+                                      style: TextStyle(fontSize: 18))
                                 ],
                               ),
-                              SizedBox(height: 20,),
+                              SizedBox(
+                                height: 20,
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Icon(Icons.admin_panel_settings,size: 35.0,color: colorBlue,),
-                                  Icon(Icons.whatshot,size: 35.0,color: colorBlue,)
+                                  Icon(
+                                    Icons.admin_panel_settings,
+                                    size: 35.0,
+                                    color: colorBlue,
+                                  ),
+                                  Icon(
+                                    Icons.whatshot,
+                                    size: 35.0,
+                                    color: colorBlue,
+                                  )
                                 ],
                               )
                             ],
@@ -428,14 +444,8 @@ class UserListView extends StatelessWidget {
                   ),
                 ),
               );
-            }
-        );
+            });
       },
-
     );
   }
 }
-
-
-
-

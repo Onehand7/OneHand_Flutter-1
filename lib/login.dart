@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,64 +10,58 @@ import 'package:onehand_spa/add/add_user.dart';
 import 'package:onehand_spa/global.dart';
 import 'package:onehand_spa/pages/menu_page.dart';
 
-
-import 'list/user.dart';
+import 'list/users.dart';
 import 'menu/animation_route.dart';
 
-
-
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(Login());
-
 }
 
-class Login extends StatelessWidget{
+class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Login",
       theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.lightBlue
-      ),
+          brightness: Brightness.dark, primarySwatch: Colors.lightBlue),
       darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.lightBlue
-      ),
-      home: LoginUser(title:"Login"),
+          brightness: Brightness.dark, primarySwatch: Colors.lightBlue),
+      home: LoginUser(title: "Login"),
     );
   }
-
 }
+
 class LoginUser extends StatelessWidget {
   final String title;
-  const LoginUser({Key? key,required this.title}) : super(key: key);
+  const LoginUser({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
-      statusBarColor: Colors.black26
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.black26));
     return Scaffold(
-        body: LoginFrom(),
+      body: LoginFrom(),
     );
   }
 }
-class LoginFrom extends StatefulWidget{
+
+class LoginFrom extends StatefulWidget {
   @override
-  loginFromState createState(){
+  loginFromState createState() {
     return loginFromState();
   }
 }
-class loginFromState extends State<LoginFrom>{
-  bool selectLogin=true;
+
+class loginFromState extends State<LoginFrom> {
+  bool selectLogin = true;
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final email = TextEditingController();
   final password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,55 +81,61 @@ class loginFromState extends State<LoginFrom>{
                   height: 20.0,
                 ),
                 Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 5.0, horizontal: 10.0),
                   child: TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     style: TextStyle(fontSize: 20.0),
                     decoration: InputDecoration(
-                      labelText: "Ingresar correo",
-                      fillColor: Colors.lightBlue,
-                      prefixIcon: Icon(Icons.email),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide: BorderSide(),
-                      )
-                    ),
-                    validator: (String? val){
-                      if(val!.isEmpty){
+                        labelText: "Ingresar correo",
+                        fillColor: Colors.lightBlue,
+                        prefixIcon: Icon(Icons.email),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(),
+                        )),
+                    validator: (String? val) {
+                      if (val!.isEmpty) {
                         return "Por favor ingresar el correo";
-                      }return null;
+                      }
+                      return null;
                     },
                     controller: email,
                   ),
                 ),
-                Padding(padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 10.0),
-                child: TextFormField(
-                  obscureText: true,
-                  style: TextStyle(fontSize: 20.0),
-                  decoration: InputDecoration(
-                      labelText: "Ingresar contraseña",
-                      fillColor: Colors.lightBlue,
-                      prefixIcon: Icon(Icons.lock_outline),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide: BorderSide(),
-                      )
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 5.0, horizontal: 10.0),
+                  child: TextFormField(
+                    obscureText: true,
+                    style: TextStyle(fontSize: 20.0),
+                    decoration: InputDecoration(
+                        labelText: "Ingresar contraseña",
+                        fillColor: Colors.lightBlue,
+                        prefixIcon: Icon(Icons.lock_outline),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(),
+                        )),
+                    validator: (String? val) {
+                      if (val!.isEmpty) {
+                        return "Por favor ingresar la contraseña";
+                      }
+                      return null;
+                    },
+                    controller: password,
                   ),
-                  validator: (String? val){
-                    if(val!.isEmpty){
-                      return "Por favor ingresar la contraseña";
-                    }return null;
-                  },
-                  controller: password,
                 ),
-                ),Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0,horizontal: 10.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 10.0),
                   child: MaterialButton(
                     minWidth: 500.0,
                     height: 60.0,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-                    onPressed: () async{
-                      if(_formKey.currentState!.validate()){
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40)),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
                         signInWithCredentials(context);
                       }
                     },
@@ -144,16 +143,22 @@ class loginFromState extends State<LoginFrom>{
                     color: Colors.lightBlue,
                   ),
                 ),
-                Padding(padding: const EdgeInsets.symmetric(vertical: 16.0,horizontal: 10.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 10.0),
                   child: MaterialButton(
                     minWidth: 500.0,
                     height: 60.0,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-                    onPressed: (){
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40)),
+                    onPressed: () {
                       Navigator.push(context, Animation_route(AddUser()));
                     },
                     color: Colors.black26,
-                    child: Text("Registrar",style: const TextStyle(color: Colors.white,fontSize: 20),),
+                    child: Text(
+                      "Registrar",
+                      style: const TextStyle(color: Colors.white, fontSize: 20),
+                    ),
                   ),
                 )
               ],
@@ -163,9 +168,10 @@ class loginFromState extends State<LoginFrom>{
       ),
     );
   }
-  int _state =0;
-  Widget setUpButtonChild(){
-    if(_state==0){
+
+  int _state = 0;
+  Widget setUpButtonChild() {
+    if (_state == 0) {
       return Text(
         "Iniciar Sesión",
         style: const TextStyle(
@@ -173,41 +179,53 @@ class loginFromState extends State<LoginFrom>{
           fontSize: 20,
         ),
       );
-    }else if(_state == 1){
+    } else if (_state == 1) {
       return CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
-    }else{
+    } else {
       return Text(
-          "Iniciar Sesión",
-          style: const TextStyle(
+        "Iniciar Sesión",
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 20,
-      ),);
+        ),
+      );
     }
   }
-  void animateButton(){
+
+  void animateButton() {
     setState(() {
-      _state=1;
+      _state = 1;
     });
-    Timer(Duration(seconds: 60),(){
+    Timer(Duration(seconds: 60), () {
       setState(() {
-        _state= 2;
+        _state = 2;
       });
     });
   }
-  void signInWithCredentials(BuildContext context) async{
+
+  void inAnimateButton() {
+    setState(() {
+      _state = 2;
+    });
+  }
+
+  void signInWithCredentials(BuildContext context) async {
     final _auth = FirebaseAuth.instance;
     final _db = FirebaseFirestore.instance;
-    String userText = "Cliente";
+    String loginResultText = "";
+    email.text = email.text.toLowerCase();
     animateButton();
-    try{
-      _auth.signInWithEmailAndPassword(
-          email: email.text,
-          password: password.text,
-      ).then((value){
-        Future<DocumentSnapshot> snapshot = _db.collection('users').doc(email.text).get();
-        snapshot.then((DocumentSnapshot user){
+
+    try {
+      await _auth
+          .signInWithEmailAndPassword(
+              email: email.text, password: password.text)
+          .then((value) {
+        Future<DocumentSnapshot> snapshot =
+            _db.collection('users').doc(email.text).get();
+        snapshot.then((DocumentSnapshot user) {
           Global.user = Users(
             user['nombre'],
             user['apellido'],
@@ -215,7 +233,49 @@ class loginFromState extends State<LoginFrom>{
             user['rol'],
             user['active'],
           );
-          Navigator.push(context, Animation_route(MenuPage(Global.user.rol))).whenComplete(() => Navigator.of(context).pop());
+          Navigator.push(context, Animation_route(MenuPage(Global.user.rol)))
+              .whenComplete(() => Navigator.of(context).pop());
+        });
+      });
+    } on FirebaseAuthException catch (e) {
+      bool locked = false;
+      if (e.code == 'user-not-found') {
+        loginResultText = "Usuario no existe";
+      } else if (e.code == 'wrong-password') {
+        loginResultText = "Clave de acceso incorrecta";
+      } else if (e.code == "too-may-request") {
+        loginResultText = "Demasiado intentos. Bloqueado por 60 segundos";
+        locked = true;
+      }
+      final snackBar = SnackBar(
+          content: Text(loginResultText), backgroundColor: Colors.redAccent);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (!locked) {
+        inAnimateButton();
+      }
+    } catch (x_x) {
+      print("Error desconocido");
+    }
+    /*
+    try {
+      _auth
+          .signInWithEmailAndPassword(
+        email: email.text,
+        password: password.text,
+      )
+          .then((value) {
+        Future<DocumentSnapshot> snapshot =
+            _db.collection('users').doc(email.text).get();
+        snapshot.then((DocumentSnapshot user) {
+          Global.user = Users(
+            user['nombre'],
+            user['apellido'],
+            user.id,
+            user['rol'],
+            user['active'],
+          );
+          Navigator.push(context, Animation_route(MenuPage(Global.user.rol)))
+              .whenComplete(() => Navigator.of(context).pop());
         });
       });
       /*
@@ -233,14 +293,14 @@ class loginFromState extends State<LoginFrom>{
       }));
       
        */
-      
-    }catch(e){
+
+    } catch (e) {
       setState(() {
-        _state=2;
+        _state = 2;
       });
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
+    */
     /*
      _auth.signInWithEmailAndPassword(
         email: email.text, 
@@ -265,6 +325,4 @@ class loginFromState extends State<LoginFrom>{
     });
      */
   }
-
 }
-
