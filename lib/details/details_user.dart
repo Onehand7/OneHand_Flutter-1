@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onehand_spa/details/separator.dart';
-import 'package:onehand_spa/details/user_summary.dart';
-import 'package:onehand_spa/list/list_user.dart';
-import 'package:onehand_spa/list/users.dart';
-import 'package:onehand_spa/menu/animation_route.dart';
-import 'package:onehand_spa/menu/menu_lateral.dart';
+import 'package:onehand_app/details/separator.dart';
+import 'package:onehand_app/details/user_summary.dart';
+import 'package:onehand_app/list/list_user.dart';
+import 'package:onehand_app/list/users.dart';
+import 'package:onehand_app/menu/animation_route.dart';
+import 'package:onehand_app/menu/menu_lateral.dart';
 
 import '../global.dart';
 
 class DetailsUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Detalles',
@@ -34,7 +33,6 @@ class DetailUser extends StatelessWidget {
   DetailUser({Key? key, required this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -58,7 +56,6 @@ class DetailUser extends StatelessWidget {
 class Details extends StatefulWidget {
   @override
   DetailsFormState createState() {
-    // TODO: implement createState
     return DetailsFormState();
   }
 }
@@ -70,7 +67,6 @@ class DetailsFormState extends State<Details> {
   }
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Container(
         constraints: BoxConstraints.expand(),

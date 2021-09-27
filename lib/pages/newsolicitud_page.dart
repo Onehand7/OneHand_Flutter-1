@@ -1,15 +1,15 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onehand_spa/list/list_user.dart';
+import 'package:onehand_app/list/list_user.dart';
 
-import '../constans.dart';
+import '../constants.dart';
 
 class ScreenNewSolicitud extends StatefulWidget {
-
   //const ScreenNewSolicitud({Key? key}) : super(key: key);
-String name,user;
-ScreenNewSolicitud(this.name,this.user);
+  final String name;
+  final String user;
+  const ScreenNewSolicitud({Key? key, required this.name, required this.user})
+      : super(key: key);
   @override
   _ScreenNewSolicitudState createState() => _ScreenNewSolicitudState();
 }
@@ -106,6 +106,7 @@ class _ScreenNewSolicitudState extends State<ScreenNewSolicitud> {
     );
   }
 }
+
 Widget _textFieldNuevaSolicitud() {
   return _textFieldGeneral(
     labelText: "Nueva solicitud",
@@ -130,7 +131,11 @@ class _textFieldGeneral extends StatelessWidget {
   final Function onChanged;
   final IconData icon;
   final int maxline;
-  const _textFieldGeneral({required this.labelText, required this.onChanged, required this.icon, required this.maxline});
+  const _textFieldGeneral(
+      {required this.labelText,
+      required this.onChanged,
+      required this.icon,
+      required this.maxline});
 
   @override
   Widget build(BuildContext context) {

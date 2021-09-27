@@ -1,14 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onehand_spa/add/add_user.dart';
-import 'package:onehand_spa/add/view_perfil.dart';
-import 'package:onehand_spa/global.dart';
-import 'package:onehand_spa/list/users.dart';
-import 'package:onehand_spa/login.dart';
-import 'package:onehand_spa/main.dart';
-import 'package:onehand_spa/menu/animation_route.dart';
-import 'package:onehand_spa/pages/menu_page.dart';
+import 'package:onehand_app/add/view_perfil.dart';
+import 'package:onehand_app/global.dart';
+import 'package:onehand_app/main/login_screen.dart';
+import 'package:onehand_app/menu/animation_route.dart';
+import 'package:onehand_app/pages/menu_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MenuLateral extends StatefulWidget {

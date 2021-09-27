@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onehand_spa/details/details_user.dart';
-import 'package:onehand_spa/list/users.dart';
-import 'package:onehand_spa/menu/animation_route.dart';
-import 'package:onehand_spa/menu/menu_lateral.dart';
-import '../constans.dart';
+import 'package:onehand_app/details/details_user.dart';
+import 'package:onehand_app/list/users.dart';
+import 'package:onehand_app/menu/animation_route.dart';
+import 'package:onehand_app/menu/menu_lateral.dart';
+import '../constants.dart';
 import '../global.dart';
 
 class ListUser extends StatefulWidget {
@@ -18,7 +18,6 @@ class ListUserState extends State<ListUser> {
   final _refreshKey = GlobalKey<RefreshIndicatorState>();
   final _db = FirebaseFirestore.instance;
   late List<Users> listUser;
-  late Widget _users;
   late bool _isSearching;
   final _controller = new TextEditingController();
   //late Users doc;
@@ -29,7 +28,6 @@ class ListUserState extends State<ListUser> {
     super.initState();
     Firebase.initializeApp();
     listUser = <Users>[];
-    _users = SizedBox();
     _isSearching = false;
 
     //readData();
@@ -95,8 +93,7 @@ class ListUserState extends State<ListUser> {
             return Center(child: CircularProgressIndicator());
           return new ListView(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map<String, dynamic> data =
-                  document.data() as Map<String, dynamic>;
+              //Map<String, dynamic> data = document.data() as Map<String, dynamic>;
               return UserListView();
             }).toList(),
           );
@@ -126,7 +123,6 @@ class ListUserState extends State<ListUser> {
                     )),
                   })
               .toList(),
-          userList(null),
         });
   }
 
@@ -253,36 +249,8 @@ class ListUserState extends State<ListUser> {
     );
   }
 
-  void userList(String? searchText) {
-    setState(() {
-      if (listUser != null) {
-        if (searchText == null || searchText == "") {
-          print(listUser);
-          _users = Column(
-            children: listUser.map((user) => buildItem(user)).toList(),
-          );
-        } else {
-          var usuario = listUser
-              .where((element) => element.nombre.startsWith(searchText))
-              .toList();
-          if (0 < usuario.length) {
-            _users = Column(
-              children: usuario.map((user) => buildItem(user)).toList(),
-            );
-          } else {
-            _users = SizedBox();
-          }
-        }
-      } else {
-        _users = SizedBox();
-      }
-    });
-  }
-
   void searchOperation(String searchText) {
-    if (_isSearching) {
-      userList(searchText);
-    }
+    if (_isSearching) {}
   }
 
   void _handleSearchStart() {
@@ -310,7 +278,7 @@ class ListUserState extends State<ListUser> {
 class UserListView extends StatelessWidget {
   final Stream<QuerySnapshot> collectionStream =
       FirebaseFirestore.instance.collection('users').snapshots();
-  late Users doc;
+  late final Users doc;
 
   @override
   Widget build(BuildContext context) {

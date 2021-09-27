@@ -1,9 +1,7 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:onehand_spa/global.dart';
-import 'package:onehand_spa/menu/animation_route.dart';
-import 'package:onehand_spa/menu/menu_lateral.dart';
+import 'package:onehand_app/global.dart';
+import 'package:onehand_app/menu/menu_lateral.dart';
+
 class ViewPerfil extends StatelessWidget {
   const ViewPerfil({Key? key}) : super(key: key);
 
@@ -11,20 +9,24 @@ class ViewPerfil extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Perfil"),),
+        title: Center(
+          child: Text("Perfil"),
+        ),
         backgroundColor: Color(0xFF292926),
         leading: IconButton(
-        icon: Icon(
-        Icons.arrow_back,
-        size: 30,
-        ),
-        onPressed: () {}
-        ),
+            icon: Icon(
+              Icons.arrow_back,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
       ),
-      body: BuildPerfil(context),
+      body: buildPerfil(context),
     );
   }
-  Widget BuildPerfil(BuildContext context){
+
+  Widget buildPerfil(BuildContext context) {
     //var size = MediaQuery.of(context).size;
     return ListView(
       children: <Widget>[
@@ -38,22 +40,20 @@ class ViewPerfil extends StatelessWidget {
                 Icons.account_circle,
                 size: 150,
               ),
-              onPressed: (){
+              onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => MenuLateral(
-                  ),
+                  builder: (context) => MenuLateral(),
                 ));
-              }
-          ),
+              }),
         ),
         Center(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "${Global.user.nombre} ${Global.user.apellido}",
-                style: TextStyle(fontSize: 27),
-              ),
-            )),
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "${Global.user.nombre} ${Global.user.apellido}",
+            style: TextStyle(fontSize: 27),
+          ),
+        )),
         ListTile(
           title: Text("Correo electrónico"),
           subtitle: Text("${Global.user.email}"),
@@ -73,4 +73,3 @@ class ViewPerfil extends StatelessWidget {
     );
   }
 }
-

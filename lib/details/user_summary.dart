@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onehand_spa/add/add_user.dart';
-import 'package:onehand_spa/details/separator.dart';
-import 'package:onehand_spa/list/users.dart';
-import 'package:onehand_spa/menu/animation_route.dart';
+import 'package:onehand_app/details/separator.dart';
+import 'package:onehand_app/list/users.dart';
 
 import '../global.dart';
 
 class UserSummary extends StatelessWidget {
   final bool horizontal;
-  late Users _doc;
+  late final Users _doc;
+
   UserSummary({required this.horizontal}) {
-    _doc = Global.doc;
+    this._doc = Global.doc;
   }
+
   @override
   Widget build(BuildContext context) {
     final imageThumbnail = Container(

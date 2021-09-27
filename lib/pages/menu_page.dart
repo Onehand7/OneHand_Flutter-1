@@ -1,15 +1,14 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:onehand_spa/menu/menu_lateral.dart';
+import 'package:onehand_app/menu/menu_lateral.dart';
 
-import '../constans.dart';
+import '../constants.dart';
 import 'newsolicitud_page.dart';
 
 class MenuPage extends StatefulWidget {
   final String user;
-  const MenuPage(this.user,{Key? key}) : super(key: key);
+  const MenuPage(this.user, {Key? key}) : super(key: key);
 
   @override
   _MenuPageState createState() => _MenuPageState();
@@ -17,32 +16,28 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _auth = FirebaseAuth.instance;
-  int pageIndex =1;
+  int pageIndex = 1;
 
   _pageCurveNavigationBar(int page) {
     switch (page) {
       case 0:
         return _listSolicitudes(context);
-        break;
       case 1:
         return (widget.user) == "Cliente"
             ? _menuCliente(context, widget.user.toString())
             : _menuTecnico(context);
-        break;
       case 2:
         return _listChat(context);
-        break;
       default:
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         title: Center(child: Text("Menu")),
-
       ),
       drawer: MenuLateral(),
       body: _pageCurveNavigationBar(pageIndex),
@@ -73,7 +68,6 @@ class _MenuPageState extends State<MenuPage> {
             //_pageCurveNavigationBar(pageIndex);
           });
         },
-
       ),
     );
   }
@@ -241,7 +235,7 @@ class _buttonSelectTecnico extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                FlatButton(onPressed: () => {}, child: Text('Entrar')),
+                TextButton(child: Text("Entrar"), onPressed: () => {}),
               ],
             )
           ],
@@ -260,7 +254,6 @@ class _buttonServicios extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipOval(
-
       child: Container(
         width: 150,
         height: 150,
@@ -269,66 +262,74 @@ class _buttonServicios extends StatelessWidget {
             image: iconosService,
           ),
         ),
-        child: FlatButton(
-          padding: EdgeInsets.all(0.0),
-          onPressed: () {
-            switch (label) {
-              case "Baby Sister":
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScreenNewSolicitud(label, user),
-                ));
-                break;
-              case "Eléctrico":
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScreenNewSolicitud(label, user),
-                ));
-                break;
-              case "Electromecánico":
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScreenNewSolicitud(label, user),
-                ));
-                break;
-              case "Enfermería":
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScreenNewSolicitud(label, user),
-                ));
-                break;
-              case "Gásfiter":
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScreenNewSolicitud(label, user),
-                ));
-                break;
-              case "Informática":
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScreenNewSolicitud(label, user),
-                ));
-                break;
-              case "Kinesiólogo":
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScreenNewSolicitud(label, user),
-                ));
-                break;
-              case "Mecánico":
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScreenNewSolicitud(label, user),
-                ));
-                break;
-              case "Pedagogía básica":
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScreenNewSolicitud(label, user),
-                ));
-                break;
-              case "Turismo":
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ScreenNewSolicitud(label, user),
-                ));
-                break;
+        child: TextButton(
+            child: Text(""),
+            onPressed: () {
+              switch (label) {
+                case "Baby Sister":
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        ScreenNewSolicitud(name: label, user: user),
+                  ));
+                  break;
+                case "Eléctrico":
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        ScreenNewSolicitud(name: label, user: user),
+                  ));
+                  break;
+                case "Electromecánico":
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        ScreenNewSolicitud(name: label, user: user),
+                  ));
+                  break;
+                case "Enfermería":
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        ScreenNewSolicitud(name: label, user: user),
+                  ));
+                  break;
+                case "Gásfiter":
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        ScreenNewSolicitud(name: label, user: user),
+                  ));
+                  break;
+                case "Informática":
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        ScreenNewSolicitud(name: label, user: user),
+                  ));
+                  break;
+                case "Kinesiólogo":
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        ScreenNewSolicitud(name: label, user: user),
+                  ));
+                  break;
+                case "Mecánico":
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        ScreenNewSolicitud(name: label, user: user),
+                  ));
+                  break;
+                case "Pedagogía básica":
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        ScreenNewSolicitud(name: label, user: user),
+                  ));
+                  break;
+                case "Turismo":
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        ScreenNewSolicitud(name: label, user: user),
+                  ));
+                  break;
 
-              default:
-            }
-          },
-          child: Text(""),
-        ),
+                default:
+              }
+            }),
       ),
     );
   }
